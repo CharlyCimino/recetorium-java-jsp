@@ -19,11 +19,10 @@ public class PerfilDAO implements DAO<Perfil, Integer> {
     @Override
     public void add(Perfil perfil) throws SQLException {
         String query = "INSERT INTO perfil (nombre, foto, usuario_id) VALUES (?, ?, ?)";
-        try (Connection con = ConnectionPool.getInstance().getConnection(); 
-             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, perfil.getNombre());
             preparedStatement.setString(2, perfil.getFoto());
-            preparedStatement.setInt(3, perfil.getUsuarioId());
+            //preparedStatement.setInt(3, perfil.getUsuarioId());
             preparedStatement.executeUpdate();
         }
     }
@@ -49,6 +48,18 @@ public class PerfilDAO implements DAO<Perfil, Integer> {
     }
 
     @Override
+    public List<Perfil> getAll() throws SQLException {
+        List<Perfil> perfiles = new ArrayList<>();
+        String query = "SELECT * FROM perfil";
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                perfiles.add(rsRowToPerfil(resultSet));
+            }
+        }
+        return perfiles;
+    }
+    
+    @Override
     public Perfil getById(Integer perfilId) throws SQLException {
         String query = "SELECT * FROM perfil WHERE id = ?";
         Perfil perfil = null;
@@ -56,34 +67,13 @@ public class PerfilDAO implements DAO<Perfil, Integer> {
             preparedStatement.setInt(1, perfilId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    perfil = new Perfil(
-                            resultSet.getInt("id"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("foto"),
-                            resultSet.getInt("usuario_id")
-                    );
+                    perfil = rsRowToPerfil(resultSet);
                 }
             }
         }
         return perfil;
     }
 
-    @Override
-    public List<Perfil> getAll() throws SQLException {
-        List<Perfil> perfiles = new ArrayList<>();
-        String query = "SELECT * FROM perfil";
-        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                perfiles.add(new Perfil(
-                        resultSet.getInt("id"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("foto"),
-                            resultSet.getInt("usuario_id")
-                ));
-            }
-        }
-        return perfiles;
-    }
 
     public Perfil getByUsuarioId(int usuarioId) throws SQLException {
         String query = "SELECT * FROM perfil WHERE usuario_id = ?";
@@ -92,12 +82,7 @@ public class PerfilDAO implements DAO<Perfil, Integer> {
             preparedStatement.setInt(1, usuarioId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    perfil = new Perfil(
-                            resultSet.getInt("id"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("foto"),
-                            resultSet.getInt("usuario_id")
-                    );
+                    perfil = rsRowToPerfil(resultSet);
                 }
             }
         }
@@ -106,9 +91,21 @@ public class PerfilDAO implements DAO<Perfil, Integer> {
 
     public void deleteByUsuarioId(Integer usuarioId) throws SQLException {
         String query = "DELETE FROM perfil WHERE usuario_id = ?";
-        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setInt(1, usuarioId);
             preparedStatement.executeUpdate();
         }
+    }
+
+    private Perfil rsRowToPerfil(ResultSet rs) throws SQLException {
+        RecetaDAO recetaDAO = new RecetaDAO();
+        Perfil perfil = new Perfil(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("foto")
+        );
+        perfil.setRecetas(recetaDAO.getByPerfilId(perfil.getId()));
+        return perfil;
     }
 }

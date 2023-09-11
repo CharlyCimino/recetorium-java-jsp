@@ -1,21 +1,26 @@
 
 package ar.charlycimino.recetorium.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Charly Cimino
  * Aprendé más Java en mi canal: https://www.youtube.com/c/CharlyCimino
  * Encontrá más código en mi repo de GitHub: https://github.com/CharlyCimino
  */
-public class IngredienteDeReceta {
+public class ItemDeReceta implements Serializable {
     private int recetaId;
-    private int ingredienteId;
+    private Ingrediente ingrediente;
     private int cantidad;
     private String unidadMedida;
+    
+    public ItemDeReceta() {
+        this(0, 0, "");
+    }
 
-    public IngredienteDeReceta(int recetaId, int ingredienteId, int cantidad, String unidadMedida) {
+    public ItemDeReceta(int recetaId, int cantidad, String unidadMedida) {
         this.recetaId = recetaId;
-        this.ingredienteId = ingredienteId;
         this.cantidad = cantidad;
         this.unidadMedida = unidadMedida;
     }
@@ -28,12 +33,12 @@ public class IngredienteDeReceta {
         this.recetaId = recetaId;
     }
 
-    public int getIngredienteId() {
-        return ingredienteId;
+    public Ingrediente getIngrediente() {
+        return ingrediente;
     }
 
-    public void setIngredienteId(int ingredienteId) {
-        this.ingredienteId = ingredienteId;
+    public void setIngrediente(Ingrediente ingrediente) {
+        this.ingrediente = ingrediente;
     }
 
     public int getCantidad() {
@@ -52,5 +57,8 @@ public class IngredienteDeReceta {
         this.unidadMedida = unidadMedida;
     }
 
-    
+    @Override
+    public String toString() {
+        return "ItemDeReceta{" + "recetaId=" + recetaId + ", ingrediente=" + ingrediente + ", cantidad=" + cantidad + ", unidadMedida=" + unidadMedida + '}';
+    }     
 }

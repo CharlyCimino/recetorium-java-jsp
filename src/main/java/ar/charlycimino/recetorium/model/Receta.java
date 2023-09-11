@@ -1,15 +1,14 @@
 package ar.charlycimino.recetorium.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Charly Cimino Aprendé más Java en mi canal:
  * https://www.youtube.com/c/CharlyCimino Encontrá más código en mi repo de
  * GitHub: https://github.com/CharlyCimino
  */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Receta {
 
@@ -17,21 +16,24 @@ public class Receta {
     private String nombre;
     private String foto;
     private String instrucciones;
-    private int perfilId;
+    private List<ItemDeReceta> items;
+    
+    public Receta() {
+        this(0, "", "", "");
+    }
 
-    public Receta(int id, String nombre, String foto, String instrucciones, int perfilId) {
+    public Receta(int id, String nombre, String foto, String instrucciones) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
         this.instrucciones = instrucciones;
-        this.perfilId = perfilId;
-    }
-    
-    public Receta(String nombre, String foto, String instrucciones, int perfilId) {
-        this(0, nombre, foto, instrucciones, perfilId);
+        this.items = new ArrayList<>();
+    }    
+   
+    public Receta(String nombre, String foto, String instrucciones) {
+        this(0, nombre, foto, instrucciones);
     }
 
-    // Getters y setters (puedes generarlos automáticamente en tu IDE)
     public int getId() {
         return id;
     }
@@ -64,41 +66,18 @@ public class Receta {
         this.instrucciones = instrucciones;
     }
 
-    public int getPerfilId() {
-        return perfilId;
+    public List<ItemDeReceta> getItems() {
+        return items;
     }
 
-    public void setPerfilId(int perfilId) {
-        this.perfilId = perfilId;
-    }
+    public void setItems(List<ItemDeReceta> items) {
+        this.items = items;
+    }    
 
     @Override
     public String toString() {
-        return "Receta{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", instrucciones=" + instrucciones + ", perfilId=" + perfilId + '}';
-    }
-    
-    
-
-    // Métodos JDBC
-    public static Receta obtenerPorId(int recetaId, Connection connection) throws SQLException {
-        String query = "SELECT * FROM receta WHERE id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, recetaId);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return new Receta(
-                            resultSet.getInt("id"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("foto"),
-                            resultSet.getString("instrucciones"),
-                            resultSet.getInt("perfil_id")
-                    );
-                } else {
-                    return null; // No se encontró la receta con el ID especificado
-                }
-            }
-        }
+        return "Receta{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", instrucciones=" + instrucciones + ", items=" + items + '}';
     }
 
-    // Otros métodos para CRUD, como insertar, actualizar y eliminar, pueden agregarse aquí.
+    
 }

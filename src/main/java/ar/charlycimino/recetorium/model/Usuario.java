@@ -1,29 +1,34 @@
 
 package ar.charlycimino.recetorium.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Charly Cimino
  * Aprendé más Java en mi canal: https://www.youtube.com/c/CharlyCimino
  * Encontrá más código en mi repo de GitHub: https://github.com/CharlyCimino
  */
-public class Usuario {
+public class Usuario implements Serializable {
     private int id;
     private String nombre;
     private String clave;
     private String tipo;
     private Perfil perfil;
+    
+    public Usuario() {
+        this(0, "", "", "");
+    }
 
-    public Usuario(int id, String nombre, String clave, String tipo, Perfil perfil) {
+    public Usuario(int id, String nombre, String clave, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;
         this.tipo = tipo;
-        this.perfil = perfil;
     }
 
-    public Usuario(String nombre, String clave, String tipo, Perfil perfil) {
-        this(0, nombre, clave, tipo, perfil);
+    public Usuario(String nombre, String clave, String tipo) {
+        this(0, nombre, clave, tipo);
     }
 
     public int getId() {
@@ -70,9 +75,5 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", tipo=" + tipo + ", perfil=" + perfil + '}';
     }
-
-    
-
-
     
 }

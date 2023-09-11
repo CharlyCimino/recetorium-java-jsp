@@ -2,6 +2,8 @@
 package ar.charlycimino.recetorium.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,17 +15,21 @@ public class Perfil implements Serializable {
     private int id;
     private String nombre;
     private String foto;
-    private int usuarioId;
+    private List<Receta> recetas;
+    
+    public Perfil() {
+        this(0, "", "");
+    }
 
-    public Perfil(int id, String nombre, String foto, int usuarioId) {
+    public Perfil(int id, String nombre, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
-        this.usuarioId = usuarioId;
-    }    
-    
-    public Perfil(String nombre, String foto, int usuarioId) {
-        this(0, nombre, foto, usuarioId);
+        this.recetas = new ArrayList<>();
+    }
+
+    public Perfil(String nombre, String foto) {
+        this(0, nombre, foto);
     }
 
     public int getId() {
@@ -50,17 +56,17 @@ public class Perfil implements Serializable {
         this.foto = foto;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
+    public List<Receta> getRecetas() {
+        return recetas;
     }
 
-    public void setUsuarioId(int usuario_id) {
-        this.usuarioId = usuario_id;
+    public void setRecetas(List<Receta> recetas) {
+        this.recetas = recetas;
     }
     
     @Override
     public String toString() {
-        return "Perfil{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", usuario_id=" + usuarioId + '}';
+        return "Perfil{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", recetas=" + recetas + '}';
     } 
     
 }

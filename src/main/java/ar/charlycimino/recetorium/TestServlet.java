@@ -2,8 +2,12 @@ package ar.charlycimino.recetorium;
 
 import ar.charlycimino.recetorium.model.Receta;
 import ar.charlycimino.recetorium.model.db.ConnectionPool;
+import ar.charlycimino.recetorium.model.db.DAO;
 import ar.charlycimino.recetorium.model.db.IngredienteDAO;
+import ar.charlycimino.recetorium.model.db.ItemDeRecetaDAO;
+import ar.charlycimino.recetorium.model.db.PerfilDAO;
 import ar.charlycimino.recetorium.model.db.RecetaDAO;
+import ar.charlycimino.recetorium.model.db.UsuarioDAO;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +17,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,23 +32,21 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try (PrintWriter out = resp.getWriter()) { // Se obtiene el flujo de salida hacia el browser del cliente
             try {
-                RecetaDAO rDAO = new RecetaDAO();
-                IngredienteDAO iDAO = new IngredienteDAO();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                PerfilDAO perfilDAO = new PerfilDAO();
+                RecetaDAO recetaDAO = new RecetaDAO();
+                ItemDeRecetaDAO itemDAO = new ItemDeRecetaDAO();
+                IngredienteDAO ingredienteDAO = new IngredienteDAO();
                 
                 //Receta rec = new Receta("Prueba", "foto", "instrucciones", 2);
                 
-                out.println(rDAO.getAll());
-                out.println();
-                out.println(rDAO.getById(1));
-                out.println();
-                out.println(rDAO.getById(8));
-                out.println();
-                out.println(iDAO.getAll());
-                out.println();
-                out.println(iDAO.getById(1));
-                out.println();
-                out.println(iDAO.getById(8));
-                out.println();
+                testGetDAO(out, usuarioDAO);
+                testGetDAO(out, perfilDAO);
+                testGetDAO(out, recetaDAO);
+                testGetDAO(out, itemDAO);
+                testGetDAO(out, ingredienteDAO);
+                
+                
                 //rDAO.add(rec);
                 //Receta rec = rDAO.getById(6);
                 //rec.setNombre("cambio");
@@ -64,5 +67,15 @@ public class TestServlet extends HttpServlet {
             System.out.println("Error obteniendo flujo de salida al browser: ");
             ex.printStackTrace(System.out);
         }
+    }
+    
+    private static void testGetDAO(PrintWriter out, DAO<?, Integer> dao) throws SQLException {
+        out.println(dao.getClass().getSimpleName());
+        out.println(dao.getAll());
+        out.println();
+        out.println(dao.getById(1));
+        out.println();
+        out.println(dao.getById(500));
+        out.println("_________________________________");
     }
 }
