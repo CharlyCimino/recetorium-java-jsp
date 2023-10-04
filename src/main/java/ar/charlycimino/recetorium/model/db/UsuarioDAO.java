@@ -17,18 +17,20 @@ import java.util.List;
 public class UsuarioDAO implements DAO<Usuario, Integer> {
 
     @Override
-    public void add(Usuario usuario) throws SQLException {
+    public void add(Usuario usuario) {
         String query = "INSERT INTO usuario (nombre, clave, tipo) VALUES (?, ?, ?)";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, usuario.getNombre());
             preparedStatement.setString(2, usuario.getClave());
             preparedStatement.setString(3, usuario.getTipo());
             preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public void update(Usuario usuario) throws SQLException {
+    public void update(Usuario usuario) {
         String query = "UPDATE usuario SET nombre = ?, clave = ?, tipo = ? WHERE id = ?";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, usuario.getNombre());
@@ -36,34 +38,40 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
             preparedStatement.setString(3, usuario.getTipo());
             preparedStatement.setInt(4, usuario.getId());
             preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public void delete(Integer usuarioId) throws SQLException {
+    public void delete(Integer usuarioId) {
         String query = "DELETE FROM usuario WHERE id = ?";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
             PerfilDAO perfilDAO = new PerfilDAO();
             perfilDAO.deleteByUsuarioId(usuarioId);
             preparedStatement.setInt(1, usuarioId);
             preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public List<Usuario> getAll() throws SQLException {
+    public List<Usuario> getAll() {
         List<Usuario> usuarios = new ArrayList<>();
         String query = "SELECT * FROM usuario";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 usuarios.add(rsRowToUsuario(resultSet));
             }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
         return usuarios;
     }
     
     @Override
-    public Usuario getById(Integer usuarioId) throws SQLException {
+    public Usuario getById(Integer usuarioId) {
         String query = "SELECT * FROM usuario WHERE id = ?";
         Usuario usuario = null;
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
@@ -73,6 +81,8 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
                     usuario = rsRowToUsuario(resultSet);
                 }
             }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
         return usuario;
     }
