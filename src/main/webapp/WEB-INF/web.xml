@@ -9,20 +9,16 @@
         <servlet-class>ar.charlycimino.recetorium.IngredienteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>recetas-servlet</servlet-name>
-        <url-pattern>/recetas</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ingredientes-servlet</servlet-name>
         <url-pattern>/ingredientes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>recetas-servlet</servlet-name>
+        <url-pattern>/recetas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error404.jsp</location>
-    </error-page>
 </web-app>

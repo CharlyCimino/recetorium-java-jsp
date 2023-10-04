@@ -1,7 +1,7 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <jsp:include page="../includes/inicioHTML.jsp">
-    <jsp:param name="elTitulo" value="Catálogo de recetas" />
+    <jsp:param name="elTitulo" value="${customTitle}" />
 </jsp:include>
 
 <jsp:include page="../includes/navbar.jsp" />
@@ -9,7 +9,7 @@
 
 <section class="container">
     <div class="row pt-3">
-        <h1>Catálogo de recetas</h1>
+        <h1>${customTitle}</h1>
         <p class="lead mb-0">Agradecemos a los usuarios por su colaboración</p>
     </div>
     <hr/>

@@ -20,7 +20,7 @@ public class IngredienteServlet extends HttpServlet {
 
         IngredienteDAO ingredienteDAO = new IngredienteDAO();
         req.setAttribute("listaDeIngredientes", ingredienteDAO.getAll());
-        req.getRequestDispatcher("/WEB-INF/jsp/ingredientes/viewAll.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/ingredientes/listIngredientes.jsp").forward(req, resp);
 
     }
 

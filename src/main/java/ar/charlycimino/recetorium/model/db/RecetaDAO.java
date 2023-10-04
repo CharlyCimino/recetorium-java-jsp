@@ -88,9 +88,24 @@ public class RecetaDAO implements DAO<Receta, Integer> {
     public List<Receta> getByPerfilId(int perfilId) {
         List<Receta> recetas = new ArrayList<>();
         String query = "SELECT * FROM receta WHERE perfil_id = ?";
-        Receta r = null;
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setInt(1, perfilId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    recetas.add( rsRowToReceta(resultSet) );
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return recetas;
+    }
+    
+    public List<Receta> getByIngredienteId(int ingredienteId) {
+        List<Receta> recetas = new ArrayList<>();
+        String query = "SELECT * FROM receta INNER JOIN receta_ingrediente ON id = receta_id WHERE ingrediente_id = ?";
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setInt(1, ingredienteId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     recetas.add( rsRowToReceta(resultSet) );
@@ -113,4 +128,6 @@ public class RecetaDAO implements DAO<Receta, Integer> {
         receta.setItems(itemDAO.getByRecetaId(receta.getId()));
         return receta;
     }
+
+    
 }

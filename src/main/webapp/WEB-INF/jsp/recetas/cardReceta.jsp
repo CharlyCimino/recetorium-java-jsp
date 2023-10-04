@@ -7,7 +7,7 @@
               <h5 class="card-title">${receta.nombre}</h5>
               <p class="card-text">                  
                 <c:forEach items="${receta.items}" var="item">
-                    <span class="badge my-badge" style="background-color: ${item.ingrediente.color};">${item.ingrediente.nombre}</span> 
+                    <a href="?accion=read&idIngrediente=${item.ingrediente.id}"><span class="badge my-badge" style="background-color: ${item.ingrediente.color};">${item.ingrediente.nombre}</span></a>
                 </c:forEach>
               </p>              
               <p class="card-text"><small>Creada por *AUTOR*</small></p>
