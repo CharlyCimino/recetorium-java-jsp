@@ -24,9 +24,9 @@ public class RecetaServlet extends HttpServlet {
         try {
             RecetaDAO recetaDAO = new RecetaDAO();
             req.setAttribute("listaDeRecetas", recetaDAO.getAll());
-            req.getRequestDispatcher("/WEB-INF/recetas/viewAll.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/recetas/viewAll.jsp").forward(req, resp);
         } catch (SQLException ex) {
-            System.out.println(ex);
+            throw new RuntimeException(ex);
         }
     }
     
