@@ -1,7 +1,6 @@
 
 package ar.charlycimino.recetorium.model.db;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,9 +12,9 @@ import java.util.List;
  * @param <K> Tipo de dato del ID de la entidad
  */
 public interface DAO<T, K> {
-    void add(T entidad) throws SQLException;
-    void update(T entidad) throws SQLException;
-    void delete(K id) throws SQLException;
-    List<T> getAll() throws SQLException;
-    T getById(K id) throws SQLException;
+    void add(T entidad) throws Exception;
+    void update(T entidad) throws Exception;
+    void delete(K id) throws Exception;
+    List<T> getAll() throws Exception;
+    T getById(K id) throws Exception;
 }

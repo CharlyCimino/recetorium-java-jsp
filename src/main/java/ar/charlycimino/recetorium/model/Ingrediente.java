@@ -13,19 +13,21 @@ public class Ingrediente implements Serializable {
     private int id;
     private String nombre;
     private String foto;
+    private String color;
     
     public Ingrediente() {
-        this(0, "", "");
+        this(0, "", "", "");
     }
 
-    public Ingrediente(int id, String nombre, String foto) {
+    public Ingrediente(int id, String nombre, String foto, String color) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
+        this.color = color;
     }
     
-    public Ingrediente(String nombre, String foto) {
-        this(0, nombre, foto);
+    public Ingrediente(String nombre, String foto, String color) {
+        this(0, nombre, foto, color);
     }
 
     public int getId() {
@@ -52,9 +54,16 @@ public class Ingrediente implements Serializable {
         this.foto = foto;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + '}';
-    }   
-    
+        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", color=" + color + '}';
+    }    
 }

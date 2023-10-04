@@ -19,13 +19,13 @@ public class Receta {
     private List<ItemDeReceta> items;
     
     public Receta() {
-        this(0, "", "", "");
+        this(0, "", "placeholder.jpg", "");
     }
 
     public Receta(int id, String nombre, String foto, String instrucciones) {
         this.id = id;
         this.nombre = nombre;
-        this.foto = foto;
+        setFoto(foto);
         this.instrucciones = instrucciones;
         this.items = new ArrayList<>();
     }    
@@ -55,7 +55,11 @@ public class Receta {
     }
 
     public void setFoto(String foto) {
-        this.foto = foto;
+        if (foto != null) {
+            this.foto = foto;
+        } else {
+            this.foto = "placeholder.png";
+        }        
     }
 
     public String getInstrucciones() {
@@ -67,7 +71,7 @@ public class Receta {
     }
 
     public List<ItemDeReceta> getItems() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     public void setItems(List<ItemDeReceta> items) {

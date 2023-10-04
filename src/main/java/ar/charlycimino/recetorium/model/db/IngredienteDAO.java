@@ -1,6 +1,7 @@
 package ar.charlycimino.recetorium.model.db;
 
 import ar.charlycimino.recetorium.model.Ingrediente;
+import ar.charlycimino.recetorium.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,11 +55,7 @@ public class IngredienteDAO implements DAO<Ingrediente, Integer> {
             preparedStatement.setInt(1, ingredienteId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    ingrediente = new Ingrediente(
-                            resultSet.getInt("id"),
-                            resultSet.getString("nombre"),
-                            resultSet.getString("foto")
-                    );
+                    ingrediente = rsRowToIngrediente(resultSet);
                 }
             }
         }
@@ -71,13 +68,18 @@ public class IngredienteDAO implements DAO<Ingrediente, Integer> {
         String query = "SELECT * FROM ingrediente";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                ingredientes.add(new Ingrediente(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("foto")
-                ));
+                ingredientes.add(rsRowToIngrediente(resultSet));
             }
         }
         return ingredientes;
+    }
+
+    private Ingrediente rsRowToIngrediente(ResultSet rs) throws SQLException {
+        return new Ingrediente(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("foto"),
+                rs.getString("color")
+        );
     }
 }
