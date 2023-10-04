@@ -1,6 +1,6 @@
 package ar.charlycimino.recetorium;
 
-import ar.charlycimino.recetorium.model.db.RecetaDAO;
+import ar.charlycimino.recetorium.model.db.IngredienteDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,14 +13,14 @@ import java.io.IOException;
  * https://www.youtube.com/c/CharlyCimino Encontrá más código en mi repo de
  * GitHub: https://github.com/CharlyCimino
  */
-public class RecetaServlet extends HttpServlet {
+public class IngredienteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RecetaDAO recetaDAO = new RecetaDAO();
-        req.setAttribute("listaDeRecetas", recetaDAO.getAll());
-        req.getRequestDispatcher("/WEB-INF/jsp/recetas/viewAll.jsp").forward(req, resp);
+        IngredienteDAO ingredienteDAO = new IngredienteDAO();
+        req.setAttribute("listaDeIngredientes", ingredienteDAO.getAll());
+        req.getRequestDispatcher("/WEB-INF/jsp/ingredientes/viewAll.jsp").forward(req, resp);
 
     }
 

@@ -11,7 +11,10 @@
                     <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/app">App</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/recetas">Recetas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/ingredientes">Ingredientes</a>
                 </li>
             </ul>
         </div>
