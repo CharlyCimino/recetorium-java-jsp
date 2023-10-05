@@ -1,10 +1,10 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<jsp:include page="../includes/inicioHTML.jsp">
-    <jsp:param name="elTitulo" value="Catálogo de ingredientes" />
-</jsp:include>
+<c:import url="../includes/inicioHTML.jsp">
+    <c:param name="elTitulo" value="Catálogo de ingredientes" />
+</c:import>
 
-<jsp:include page="../includes/navbar.jsp" />
+<c:import url="../includes/navbar.jsp" />
 
 
 <section class="container">
@@ -16,7 +16,7 @@
     <c:choose>
         <c:when test = "${listaDeIngredientes != null && !listaDeIngredientes.isEmpty()}">
             <div class="row g-4 mb-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5" data-masonry='{"percentPosition": true }' >
-                <jsp:include page="cardIngrediente.jsp" />
+                <c:import url="cardIngrediente.jsp" />
             </div>
         </c:when>
         <c:otherwise>
@@ -40,5 +40,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
-<jsp:include page="../includes/footer.jsp"/>
-<jsp:include page="../includes/finHTML.jsp"/>
+<c:import url="../includes/footer.jsp"/>
+<c:import url="../includes/finHTML.jsp"/>

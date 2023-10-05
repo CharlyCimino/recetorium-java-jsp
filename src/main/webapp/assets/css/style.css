@@ -5,3 +5,17 @@
     color: #FF6262;
     font-size: 1.3rem;    
 }
+
+.img-text-container {
+  position: relative;
+}
+
+.inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 30px;
+}

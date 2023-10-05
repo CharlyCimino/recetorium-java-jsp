@@ -1,9 +1,9 @@
 <footer class="container-fluid bg-dark">
     <div class="py-3">
         <p class="m-0 text-light text-center">
-            Realizado por
-            <a class="text-warning" target="_blank" href="https://www.youtube.com/c/CharlyCimino"> 
-                Prof. Carlos Cimino</a>. Copyright &copy; <%= java.time.LocalDate.now().getYear() %>
+            <a target="_blank" href="https://charlycimino.com"> 
+        <img src="${pageContext.request.contextPath}/assets/img/cc.png" target="_blank" alt="Imagen de footer"/>
+    </a>
         </p>
     </div>
 </footer>

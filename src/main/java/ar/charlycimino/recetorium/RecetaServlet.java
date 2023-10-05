@@ -47,7 +47,7 @@ public class RecetaServlet extends HttpServlet {
                     destino = "/WEB-INF/jsp/recetas/listRecetas.jsp";
                 } else {
                     ligarIDReceta(req);
-                    destino = "/WEB-INF/jsp/recetas/recetaDetail.jsp";
+                    destino = "/WEB-INF/jsp/recetas/detailReceta.jsp";
                 }
                 break;
             case "update": // Form de edición
