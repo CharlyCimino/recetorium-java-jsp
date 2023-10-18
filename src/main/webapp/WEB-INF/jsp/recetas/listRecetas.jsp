@@ -30,13 +30,13 @@
 </section>
   
 
+<script src="assets/js/masonry.pkgd.min.js"></script>
 <script src="assets/js/text-color-according-BG.js"></script>
 <script>
     [...document.getElementsByClassName("my-badge")].forEach(badge => {
         badge.style.color = textColorAccordingBG(badge.style.backgroundColor.match(/\d+/g));
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
 <c:import url="../includes/footer.jsp"/>
 <c:import url="../includes/finHTML.jsp"/>

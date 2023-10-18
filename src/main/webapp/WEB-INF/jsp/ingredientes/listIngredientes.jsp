@@ -28,17 +28,17 @@
         </c:otherwise>
     </c:choose>
 </section>
-  
 
+<!--<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>-->
+<script src="assets/js/masonry.pkgd.min.js"></script>
 <script src="assets/js/text-color-according-BG.js"></script>
 <script>
     [...document.getElementsByClassName("card")].forEach(card => {
         const nuevoColor = textColorAccordingBG(card.style.backgroundColor.match(/\d+/g));
-        card.children[1].children[0].children[0].style.color = nuevoColor
+        card.children[1].children[0].children[0].style.color = nuevoColor;
         //card.children[1].children[1].style.color = nuevoColor;
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
 <c:import url="../includes/footer.jsp"/>
 <c:import url="../includes/finHTML.jsp"/>

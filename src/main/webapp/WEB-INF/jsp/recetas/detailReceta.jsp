@@ -22,7 +22,6 @@
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 <script src="assets/js/text-color-according-BG.js"></script>
 <script>
     [...document.getElementsByClassName("my-badge")].forEach(badge => {
